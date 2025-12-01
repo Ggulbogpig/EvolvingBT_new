@@ -1,0 +1,1073 @@
+body, table, div, p, dl {
+	font: unset;
+}
+
+/* Theme based on and modified from https://github.com/MaJerle/doxygen-dark-theme by Tilen Majerle: */
+
+/* Light background: #3 5 3 6 2 9; */
+/* New light dark background #3 2 3 6 3 d */
+/* Dark background: #d f e 5 f 2; */
+
+/* TOP MENU */
+.sm-dox {
+	background: #dfe5f2 !important;
+}
+
+.sm-dox a {
+	background: none;
+}
+
+body {
+	color: #D8D8D8;
+}
+
+div.fragment, pre.fragment {
+	border: 1px solid #000000;
+	background: #12161d;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+}
+
+a, a:link, a:visited {
+	color: #D8932C !important;
+}
+
+.highlighted {
+	background: none !important;
+}
+
+a.highlighted {
+	background: none !important;
+}
+
+/*********************************************/
+/**              Top main menu              **/
+/*********************************************/
+#main-nav {
+	/* display: none; */
+	border-bottom: 1px solid #32363d;
+}
+
+#main-nav .sm-dox {
+	background: transparent !important;
+}
+
+.sm-dox a {
+	text-shadow: none !important;
+	background: transparent !important;
+}
+
+.sm-dox a:hover {
+	background: #282923 !important;
+}
+
+.sm-dox {
+	text-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.sm-dox ul {
+	border: 1px solid #000000;
+	background: #32363d;
+}
+
+.directory tr.even {
+	background: #32363d;
+}
+
+
+/*********************************************/
+/**               Top search                **/
+/*********************************************/
+#MSearchSelectWindow {
+	border: 1px solid #000000;
+	background: #32363d;
+}
+
+a.selectItem {
+	padding: 3px;
+}
+
+a.SelectItem:hover {
+	background: #282923 !important;
+}
+
+#MSearchResultsWindow {
+	border: 1px solid #000000;
+	background: #32363d;
+	color: #D8932C !important;;
+}
+
+/*********************************************/
+/**                Main menu                **/
+/*********************************************/
+#nav-tree {
+	background: transparent;
+}
+
+#nav-tree a
+{
+    font-size: 1.7em;
+}
+
+#nav-tree .selected {
+	background-image: none;
+	background: #32363d;
+}
+
+/*********************************************/
+/**               Main content              **/
+/*********************************************/
+
+/*********************************************/
+/**               Inline code               **/
+/*********************************************/
+p code,
+li code,
+td code,
+dd code {
+	background-color: #000000;
+	border: 1px solid #A8B8D9;
+
+	color: #D8D8D8;
+}
+
+/*********************************************/
+/**         Table of Contents (ToC)         **/
+/*********************************************/
+div.toc {
+	background: #32363d;
+	border: 1px solid #000000;
+}
+
+div.toc h3 {
+	font-size: 150%;
+	color: inherit;
+}
+
+/*********************************************/
+/**              Content table              **/
+/*********************************************/
+table.doxtable tr:nth-child(even) td {
+	background: #32363d;
+}
+
+div.header {
+	background: transparent;
+	border-bottom: 1px solid #32363d;
+}
+
+/*********************************************/
+/**               Field table               **/
+/*********************************************/
+.fieldtable th {
+	background: #282923;
+	color: inherit;
+}
+
+/*********************************************/
+/**           Memitem and memtitle          **/
+/*********************************************/
+.memdoc {
+	border: 1px solid #A8B8D9;
+}
+
+/*********************************************/
+/**             TOP navigation              **/
+/*********************************************/
+.tabs, .tabs2, .tabs3 {
+	background: #DDDDDD;
+}
+
+.tablist li {
+	background: transparent !important;
+}
+
+.tablist a {
+	background-image: none;
+	border-right: 1px solid #999999;
+
+	color: #32363d;
+}
+
+.tablist a:hover,
+.tablist li.current a {
+	text-decoration: none;
+	color: #000000;
+	background: #CCCCCC;
+	background-image: none;
+}
+
+/*********************************************/
+/**              H1 in textblocks           **/
+/*********************************************/
+
+/*********************************************/
+/**               Note, warning             **/
+/*********************************************/
+
+/*********************************************/
+/**               Reference list            **/
+/**Similar to warning/note/todo/... messages**/
+/*********************************************/
+dl.reflist {
+
+}
+
+
+/*********************************************/
+/**               Note, warning             **/
+/*********************************************/
+#docs_list {
+	background: #32363d;
+}
+
+#docs_list ul li {
+	border-right: 1px solid #BFBFBF;
+}
+
+#docs_list ul li a {
+	color: #1b1e21;
+}
+
+#docs_list ul li a:hover,
+#docs_list ul li a.docs_current {
+	background: #282923;
+}
+
+/*********************************************/
+/**               Resizable UI              **/
+/*********************************************/
+.ui-resizable-e {
+	background: #32363d;
+}
+
+/*********************************************/
+/**               Download url              **/
+/*********************************************/
+
+/*********************************************/
+/**               Syntax folor              **/
+/*********************************************/
+div.line {
+	background: transparent;
+	color: inherit;
+}
+
+div.line a {
+	color: inherit;
+}
+
+span.keyword {
+	color: #f92472;
+	font-style: italic;
+}
+
+span.keywordtype {
+	color: #D8932C;
+	font-style: italic;
+}
+
+span.keywordflow {
+	color: #f92472;
+	font-style: italic;
+}
+
+span.comment {
+	color: #74705a;
+}
+
+span.preprocessor {
+	color: #a6e22b;
+}
+
+span.stringliteral {
+	color: #e7db74;
+}
+
+span.charliteral {
+	color: #e7db74;
+}
+
+span.vhdldigit { 
+	color: #ff00ff;
+}
+
+span.vhdlchar { 
+	color: #000000;
+}
+
+span.vhdlkeyword { 
+	color: #700070;
+}
+
+span.vhdllogic { 
+	color: #ff0000;
+}
+
+span.lineno {
+	background: transparent;
+}
+
+span.lineno a {
+	background: transparent;
+}
+
+/*********************************************/
+/**          Modules/Directory table        **/
+/*********************************************/
+.mdescLeft, .mdescRight, .memItemLeft, .memItemRight,
+.memTemplItemLeft, .memTemplItemRight, .memTemplParams {
+	background: #32363d;
+	color: inherit;
+}
+
+.memSeparator {
+	border: none;
+	background: transparent;
+}
+
+h2.groupheader {
+	color: #D8932C;
+}
+
+/*********************************************/
+/**                 Mem items               **/
+/*********************************************/
+.memtitle {
+	background: #32363d !important;
+	border-color: #000000;
+}
+
+.memitem {
+	background: #32363d !important;
+	color: inherit;
+	text-shadow: none;
+}
+
+.memproto {
+	background: inherit;
+	border-color: #000000;
+	color: inherit;
+	text-shadow: none;
+}
+
+.memproto table td {
+	font-family: monospace, fixed !important;
+}
+
+td.memItemLeft, td.memItemRight {
+	font-family: monospace, fixed;
+}
+
+.paramname, .paramname em {
+	color: #bf5f82;
+}
+
+.memdoc {
+	background: inherit;
+	border-color: #000000;
+}
+
+
+/*********************************************/
+/**                 Footer                  **/
+/*********************************************/
+.titlearea {
+	border-bottom: 1px solid #32363d;
+}
+
+/*********************************************/
+/**                 Footer                  **/
+/*********************************************/
+#nav-path {
+	background: transparent;
+}
+
+#nav-path ul {
+	background: transparent;
+	color: inherit;
+	border: none;
+	border-top: 1px solid #32363d;
+}
+
+.navpath li.footer {
+	color: inherit;
+}
+
+.navpath li.navelem a {
+	text-shadow: none;
+}
+
+/*********************************************/
+/**             Custom scrollbar            **/
+/*********************************************/
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #234567;
+	border: none;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #32363d; 
+}
+
+/*********************************************/
+/**             Custom scrollbar            **/
+/*********************************************/
+h1.glow, h2.glow, h3.glow,
+h4.glow, h5.glow, h6.glow {
+	text-shadow: 0 0 15px #D8932C;
+}
+
+
+/******* END OF DOXYGEN DARK THEME by Tilen Majerle ******/
+/*
+ * NPCSite Stylesheet
+ * By @npcdev.
+ *
+ */
+
+/* Color palette: http://paletton.com/palette.php?uid=7020J0k5Z3bq7jmjAb9015d01d3 */
+
+#doc-content {
+	height: unset !important;
+	min-height: 1000px;
+}
+
+.arrow {
+	width: unset;
+	font-size: inherit;
+}
+
+#titlearea {
+	border-bottom: 0;
+}
+
+hr.footer {
+	border-top: unset;
+}
+
+p.reference,
+p.definition {
+	font: unset;
+}
+
+div.contents {
+	overflow: auto;
+}
+
+u {
+	text-decoration: underline;
+}
+
+
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	font-family: 'Actor', 'Arial', sans-serif;
+}
+
+.contents p,
+.contents ul,
+.contents li
+{
+	padding: revert;
+	margin: revert;
+}
+
+html {
+	overflow-y: auto;
+	background-color: #000000;
+	font-size: 20px;
+	color: #CCCCCC;
+}
+
+body {
+	background-color: #000000;
+}
+
+@media (max-width: 1500px) {
+	html {
+		font-size: 16px;
+	}
+}
+
+p {
+	font-family: 'Open Sans', 'Arial', sans-serif !important;
+}
+
+.header {
+	text-align: center;
+}
+
+h1 {
+	color: #AC2720;
+}
+
+.header h1 {
+	margin-top: 60px;
+	font-size: 5rem;
+	text-align: left;
+	text-transform: lowercase;
+}
+
+@media (max-width: 1000px)
+{
+	.header h1 {
+		margin-top: 0.25em;
+		font-size: 4rem;
+	}
+}
+
+.definition div {
+	width: 50%;
+	position: relative;
+	margin: 3em 25%;
+	text-align: center;
+	padding: 2px;
+}
+
+@media (max-width: 1500px) {
+	.definition div {
+		width: 90%;
+		margin: 3em 5%;
+	}
+}
+
+.definition h2 {
+	font-family: serif;
+	font-size: 2.5rem;
+	display: inline;
+	margin: 10px;
+	color: #AC2720;
+	text-transform: lowercase;
+}
+
+.definition p {
+	margin: 5px;
+	font-size: 1.3rem;
+	text-transform: lowercase;
+}
+
+p.part-of-speech {
+	font-style: italic;
+	font-size: 1rem;
+	display: inline;
+	text-transform: lowercase;
+}
+
+p.pronunciation {
+	display: inline;
+	font-size: 1rem;
+	text-transform: lowercase;
+}
+
+.outer-wrapper {
+	width: 80%;
+	margin: 0px auto;
+	position: relative;
+}
+
+@media (max-width: 1500px) {
+	.outer-wrapper {
+		width: auto;
+		margin: 0.25em;
+	}
+}
+
+.inner-wrapper {
+	background-size: contain;
+	background-position: center center;
+	background-color: #0C0C0C;
+	background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #151515)
+		color-stop(3em, #0C0C0C),
+	);
+	background-image: -o-linear-gradient(bottom, #151515 0, #0C0C0C 3em);
+	background-image: -moz-linear-gradient(bottom, #151515 0, #0C0C0C 3em);
+	background-image: -webkit-linear-gradient(bottom, #151515 0, #0C0C0C 3em);
+	background-image: -ms-linear-gradient(bottom, #151515 0, #0C0C0C 3em);
+	background-image: linear-gradient(to bottom, #151515 0, #0C0C0C 3em);
+	padding: 1em 4%;
+}
+
+@media (max-width: 1500px) {
+	.inner-wrapper {
+		padding: 0.25em;
+	}
+}
+
+div.post-nav,
+.links div {
+	display: flex;
+}
+
+div.post-nav,
+div.pagination,
+.footer div,
+.links div {
+	position: relative;
+	padding: .5em;
+	text-align: center;
+}
+
+div.post-nav {
+	margin: 0 3em;
+	border-top: 1px solid #000000;
+}
+
+.footer div,
+.links div {
+	margin: 1em 3em 1em 3em;
+}
+
+.footer div,
+.links div
+{
+	border-top: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+}
+
+@media (max-width: 1500px) {
+	div.pagination,
+	div.post-nav,
+	.footer div,
+	.links div {
+		margin: 0.25em;
+		flex-wrap: wrap;
+	}
+}
+
+a {
+	color: #D8932C;
+	text-decoration: none !important;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+  color: #BA873C;
+  cursor: pointer;
+}
+
+span.page-number,
+.post-nav a,
+.pagination a,
+.links a {
+	padding: 1em;
+	font-size: 1.3rem;
+	font-weight: bold;
+	text-transform: lowercase;
+}
+
+.post-nav a,
+.links a {
+	flex: 1 auto;
+}
+
+@media (max-width: 1500px) {
+	span.page-number,
+	.post-nav a,
+	.links a,
+	.pagination a {
+		padding: 0.5em;
+	}
+}
+
+.about {
+	margin: 2em;
+}
+
+@media (max-width: 1500px) {
+	.about {
+		margin: 0.25em;
+	}
+}
+
+.about p {
+	text-transform: none;
+}
+
+.footer {
+	padding: 0;
+	color: #AC2720;
+	font-size: 0.9rem;
+	font-weight: bold;
+	text-transform: lowercase;
+}
+
+.footer p {
+	display: inline;
+	margin: 1em;
+}
+
+p.license {
+	font-weight: normal;
+}
+
+.about ul,
+.about ol,
+.about dl,
+.about pre,
+.about h1,
+.about h3,
+.about h4,
+.about h5,
+.about h6,
+.post-full-content p,
+.post-full-content dl,
+.post-full-content pre,
+.post-full-content h1,
+.post-full-content h2,
+.post-full-content h3,
+.post-full-content h4,
+.post-full-content h5,
+.post-full-content h6,
+.post-full-comments,
+.projectdetail dl,
+.projectdetail pre,
+.projectdetail h1,
+.projectdetail h2,
+.projectdetail h3,
+.projectdetail h4,
+.projectdetail h5,
+.projectdetail h6,
+.footnotes {
+	margin: 1.5em 0%;
+}
+
+ul,
+ol
+{
+	margin-left: 2em;
+}
+
+li
+{
+	padding: 0.5em;
+}
+
+
+.projectdetail div.callout *
+{
+	margin: 1em auto;
+	display: block;
+}
+
+.about p
+{
+	margin: 1.5em 1em;
+}
+
+div.dialog
+{
+	background: #252525;
+	border-radius: 12px;
+	padding: 0.5em;
+	margin: 2em 0 0 0;
+	display: inline-block;
+}
+
+div.response,
+div.response-inline
+{
+	background: #252525;
+	border-radius: 12px;
+	padding: 0.5em;
+	margin: 0 1em 0 1em;
+	display: inline-block;
+}
+
+div.response-inline::after
+{
+	content: " \25BE"
+}
+
+div.hidden
+{
+	display: none;
+}
+
+div.aboutspacer
+{
+	display: block;
+	margin: 2em 0;
+}
+
+.about h2,
+.about h3
+{
+	margin: 0;
+	display: inline-block;
+}
+
+img.headerimage
+{
+	dixplay: block;
+	max-width: 100%;
+}
+
+mark {
+	background-color: #121212;
+}
+
+div.clear {
+	clear: both;
+	margin: 0;
+	padding: 0;
+	width: 0;
+	height: 0;
+}
+
+@media ( min-width: 1300px )
+{
+	div.news {
+		max-width: 50%;
+		min-width: 40%;
+		min-height: 1500px;
+		max-height: 100%;
+		float: right;
+		border-left: 1px solid #000000;
+		margin: 0 0 0 2em;
+		padding: 0 1em 0 1em;
+	}
+}
+
+@media ( min-width: 1500px )
+{
+	div.projects
+	{
+		-moz-column-count: 2;
+		-webkit-column-count: 2;
+		column-count: 2;
+	}
+}
+
+div.project
+{
+	background: #111111;
+	border-radius: 12px;
+	border: 1px solid #000000;
+	padding: 0.5em;
+	margin: 1em 0;
+	display: inline-block;
+	width: 90%;
+	margin-left: 5%;
+}
+
+.project h2,
+.project p
+{
+	display: block;
+	margin: 1.5em 0 1.5em 0;
+}
+
+.project img
+{
+	display: inline;
+	float: left;
+	margin: 1em 2em 1em 0;
+	width: 40%;
+	max-width: 300px;
+	color: #FFFFFF;
+}
+
+div.cv-section
+{
+	background: #111111;
+	border-radius: 12px;
+	padding: 0.5em;
+	margin: 1.5em 0;
+	display: block;
+}
+
+.cv-wrapper h1,
+.cv-wrapper h2
+{
+	text-align: center
+}
+
+.cv-wrapper h2
+{
+	color: #D8932C;
+}
+
+.cv-wrapper h1,
+.cv-wrapper h2,
+.cv-wrapper h3,
+.cv-wrapper h4,
+.cv-wrapper h5,
+.cv-wrapper h6
+{
+	margin: .5em 0%;
+}
+
+.cv-header h3
+{
+	float: left;
+}
+
+.cv-header h4
+{
+	float: right;
+	margin: .5em 1em;
+}
+
+.cv-wrapper ul,
+.cv-wrapper ol,
+.cv-wrapper dl,
+.cv-wrapper pre,
+.cv-wrapper p
+{
+	margin: 1em 1.5em 2em 1.5em;
+}
+
+div.cv-header:after
+{
+	display: block;
+	content: '';
+	clear: both;
+}
+
+div.contact
+{
+	display: block;
+	max-width: 50%;
+	margin: 2em auto;
+}
+
+@media (max-width: 1500px) {
+	div.contact
+	{
+		max-width: 80%;
+	}
+}
+
+.contact p
+{
+	margin: 2em;
+}
+
+.projectdetail {
+	margin: 0em 3em;
+	padding: 0em 2em;
+}
+
+@media (max-width: 1500px) {
+	.projectdetail {
+		margin: 0em 0.25em;
+		padding: 0em 0.25em;
+	}
+}
+
+div.projecttitle
+{
+	width: 100%;
+	text-align: center;
+}
+
+.projectdetail img
+{
+	max-width: 100%;
+	margin: 1em auto;
+	display: block;
+}
+
+.projectsection p
+{
+	margin: 1em 0;
+}
+
+@media (min-width: 1500px) {
+	div.projectheading
+	{
+		float: left;
+		min-width: 250px;
+		margin-right: 1em;
+	}
+
+	div.projectsection
+	{
+		width: 100%;
+		display: table;
+	}
+
+	div.projectsection#after
+	{
+		clear: both;
+	}
+
+	.projectsection span
+	{
+		display: table-cell;
+		vertical-align: middle;
+		text-align: left;
+		width: 75%;
+	}
+}
+
+@media (max-width: 1500px) {
+	div.projectheading
+	{
+		text-align: center;
+		width: 100%;
+	}
+}
+
+div.csl-entry
+{
+	font-size: 0.83em;
+	font-weight: bold;
+}
+
+img
+{
+    max-width: 100%;
+}
+
+img.inlineimage
+{
+	display: inline;
+	margin: 0em;
+	vertical-align: middle;
+}
+
+figure.kg-width-full
+{
+	width: 100vw;
+	position: relative;
+	left: 50%;
+	right: 50%;
+	margin-left: -50vw;
+	margin-right: -50vw;
+}
+
+#versionnavform
+{
+    display: inline-block;
+}
+
+#navselect
+{
+    font-size: .7em;
+}

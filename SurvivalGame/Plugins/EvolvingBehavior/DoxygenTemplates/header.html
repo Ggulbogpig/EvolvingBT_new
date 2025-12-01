@@ -1,0 +1,152 @@
+<!-- HTML header for doxygen 1.8.15-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen $doxygenversion"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!--BEGIN PROJECT_NAME--><title>$projectname: $title</title><!--END PROJECT_NAME-->
+<!--BEGIN !PROJECT_NAME--><title>$title</title><!--END !PROJECT_NAME-->
+<link href="$relpath^tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="$relpath^jquery.js"></script>
+<script type="text/javascript" src="$relpath^dynsections.js"></script>
+	
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="@NPCDev">
+	<meta name="description" content="An NPC dev devs NPCs.">
+	<meta name="robots" content="all">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:creator" content="@npcdev">
+	<meta name="twitter:site" content="@npcdev">
+	<meta name="twitter:url" content="https://npc.codes">
+	<meta name="twitter:title" property="og:title" content="an npc codes">
+	<meta name="twitter:description" property="og:description" content="an npc's perspective on games, ai, pcg, and making the future stranger together">
+	<meta name="twitter:image" property="og:image" content="https://npc.codes/images/npccodespreview.png">
+	
+	<script>
+	$(function()
+	{
+        createNavMenu();
+		
+        var includeList = $('[data-include-html]');
+		jQuery.each( includeList, function( index, include )
+			{
+				$(include).load( "/includes/" + $(include).data('include-html') + ".html" );
+			}
+		);
+
+		$(".response-inline").click(
+			function(event)
+			{
+				var hidden = $(".hidden#" + this.id)
+				if ($(hidden).length)
+				{
+					$(hidden).toggle('fast');
+				}
+			}
+		);
+	});
+
+    function jumpToSelectedVersion() {
+        if (document.versionnavform.navselect.value != "null") {
+            document.location.href = document.versionnavform.navselect.options[document.versionnavform.navselect.options.selectedIndex].value;
+        }
+    }
+
+    function createNavMenu() {
+        var versions = ["0.2.0", "0.1.0"]
+        $.get('/manual/versions.txt', function(data){
+            versions = data.split('\n');
+        });
+
+        var projectNumberToReplace = document.getElementById("projectnumber");
+        
+        var projectNavMenu = document.createElement("form");
+        projectNavMenu.setAttribute("name", "versionnavform");
+        projectNavMenu.setAttribute("id", "versionnavform");
+
+        var selectBox = document.createElement("select");
+        selectBox.setAttribute("name", "navselect");
+        selectBox.setAttribute("id", "navselect");
+        selectBox.setAttribute("aria-label", "Select manual version");
+        selectBox.setAttribute("onChange", "jumpToSelectedVersion()");
+        projectNavMenu.appendChild(selectBox);
+
+        var currVersion = document.createElement("option");
+        var currVersionURL = projectNumberToReplace.textContent.replace(/\./g, "-");
+        currVersion.setAttribute("value", "/manual/" + currVersionURL);
+        currVersion.textContent=projectNumberToReplace.textContent;
+        selectBox.appendChild(currVersion);
+
+        for ( let idx = 0; idx < versions.length; ++idx )
+        {
+            if (versions[idx] === projectNumberToReplace.textContent)
+            {
+                continue;
+            }
+            
+            var oldVersionElement = document.createElement("option");
+            var oldVersionURL = versions[idx].replace(/\./g, "-");
+            oldVersionElement.setAttribute("value", "/manual/" + oldVersionURL);
+            oldVersionElement.textContent=versions[idx];
+            selectBox.appendChild(oldVersionElement);
+        }
+
+        projectNumberToReplace.replaceWith(projectNavMenu);
+    };
+	</script>
+$treeview
+$search
+$mathjax
+<link href="$relpath^$stylesheet" rel="stylesheet" type="text/css" />
+$extrastylesheet
+</head>
+<body id="an-npc-codes">
+	<div class="outer-wrapper">
+		<div data-include-html="header"></div>
+	<div class="inner-wrapper">
+
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+
+<!--BEGIN TITLEAREA-->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <!--BEGIN PROJECT_LOGO-->
+  <td id="projectlogo"><img alt="Logo" src="$relpath^$projectlogo"/></td>
+  <!--END PROJECT_LOGO-->
+  <!--BEGIN PROJECT_NAME-->
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">$projectname
+   <!--BEGIN PROJECT_NUMBER-->&#160;<span id="projectnumber">$projectnumber</span><!--END PROJECT_NUMBER-->
+   </div>
+   <!--BEGIN PROJECT_BRIEF--><div id="projectbrief">$projectbrief</div><!--END PROJECT_BRIEF-->
+  </td>
+  <!--END PROJECT_NAME-->
+  <!--BEGIN !PROJECT_NAME-->
+   <!--BEGIN PROJECT_BRIEF-->
+    <td style="padding-left: 0.5em;">
+    <div id="projectbrief">$projectbrief</div>
+    </td>
+   <!--END PROJECT_BRIEF-->
+  <!--END !PROJECT_NAME-->
+  <!--BEGIN DISABLE_INDEX-->
+   <!--BEGIN SEARCHENGINE-->
+   <td>$searchbox</td>
+   <!--END SEARCHENGINE-->
+  <!--END DISABLE_INDEX-->
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<div data-include-html="navigation"></div>
+<!--END TITLEAREA-->
+<!-- end header part -->
