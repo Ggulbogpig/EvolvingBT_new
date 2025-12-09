@@ -116,29 +116,105 @@ void UPlayerRecorder::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 
 	// ====(3) Sub-Reward 계산===
 
-	float DamagePotential = 0.f;
-	float Survivability = 0.f;
-	float Safety = 0.f;
+	//float DamagePotential = 0.f;
+	//float Survivability = 0.f;
+	//float Safety = 0.f;
 
-	if (TargetEnemy)
+	//if (TargetEnemy)
+	//{
+	//	float Dist = Data.DistanceToEnemy;
+
+	//	float NormDist = 1.0f - FMath::Clamp(Dist / 1000.f, 0.f, 1.f);
+	//	float AttackBonus = bIsAttackingFlag ? 0.5f : 0.f;
+
+	//	DamagePotential = NormDist + AttackBonus;
+	//	Survivability = FMath::Clamp(Dist / 1000.f, 0.f, 1.f);
+
+	//	if (Dist < 200.f)       Safety = -1.0f;
+	//	else if (Dist < 400.f)  Safety = -0.5f;
+	//	else                    Safety = 0.2f;
+	//}
+
+	//Data.SubReward.Empty();
+	//Data.SubReward.Add(DamagePotential);
+	//Data.SubReward.Add(Survivability);
+	//Data.SubReward.Add(Safety);
+
+	// ====(3) Sub-Reward 계산===수정
+
+// 행동 목록
+	TArray<FString> Actions = { "Chase", "Patrol", "Idle", "Attack" };
+
+	// 최종 저장될 SubRewards
+	TArray<TArray<float>> SubRewardList;
+
+	float Dist = Data.DistanceToEnemy;
+	float NormDist = (TargetEnemy && Dist > 0) ? (1.0f - FMath::Clamp(Dist / 1000.f, 0.f, 1.f)) : 0.f;
+
+	bool Found = Data.bTargetFound;
+	float AttackBonus = (bIsAttackingFlag && Found) ? 1.0f : 0.f;
+
+	// 기본 Safety 계산
+	float BaseSafety = 0.f;
+	if (Dist > 0)
 	{
-		float Dist = Data.DistanceToEnemy;
-
-		float NormDist = 1.0f - FMath::Clamp(Dist / 1000.f, 0.f, 1.f);
-		float AttackBonus = bIsAttackingFlag ? 0.5f : 0.f;
-
-		DamagePotential = NormDist + AttackBonus;
-		Survivability = FMath::Clamp(Dist / 1000.f, 0.f, 1.f);
-
-		if (Dist < 200.f)       Safety = -1.0f;
-		else if (Dist < 400.f)  Safety = -0.5f;
-		else                    Safety = 0.2f;
+		if (Dist < 200.f)      BaseSafety = -1.0f;
+		else if (Dist < 400.f) BaseSafety = -0.5f;
+		else                   BaseSafety = 0.2f;
 	}
 
-	Data.SubReward.Empty();
-	Data.SubReward.Add(DamagePotential);
-	Data.SubReward.Add(Survivability);
-	Data.SubReward.Add(Safety);
+	// 각 Action별 계산
+	for (const FString& Act : Actions)
+	{
+		float DamagePotential = 0.f;
+		float Survivability = 0.f;
+		float Safety = 0.f;
+
+		if (Act == "Chase")
+		{
+			DamagePotential = NormDist;
+			if (!Found) DamagePotential *= 0.5f;   // 적을 못 봤으면 Chase 효과 반감
+
+			Survivability = 1.f - NormDist;
+			Safety = BaseSafety - 0.2f;
+		}
+		else if (Act == "Patrol")
+		{
+			DamagePotential = Found ? 0.2f : 0.1f; // 적을 발견했다면 보상↑
+			Survivability = 0.6f;
+			Safety = 0.3f;
+		}
+		else if (Act == "Idle")
+		{
+			DamagePotential = 0.05f;
+			Survivability = 0.5f;
+			Safety = Found ? -0.2f : 0.4f; // 적을 보고 가만 있음 → 위험
+		}
+		else if (Act == "Attack")
+		{
+			if (!Found)
+			{
+				DamagePotential = -1.0f; // 못 보는데 공격 → 안 좋은 행동
+			}
+			else
+			{
+				DamagePotential = NormDist + AttackBonus * 1.5f;
+			}
+
+			Survivability = -NormDist;
+			Safety = BaseSafety - 0.5f;
+		}
+
+		TArray<float> vec;
+		vec.Add(DamagePotential);
+		vec.Add(Survivability);
+		vec.Add(Safety);
+
+		SubRewardList.Add(vec);
+	}
+
+	Data.SubRewards = SubRewardList;
+
 
 	//==============================================
 	
@@ -154,6 +230,8 @@ void UPlayerRecorder::EndPlay(const EEndPlayReason::Type EndPlayReason)
 }
 
 void UPlayerRecorder::SaveToJson()
+
+
 {
 	// JSON 배열 생성
 	TArray<TSharedPtr<FJsonValue>> JsonArray;
@@ -185,22 +263,22 @@ void UPlayerRecorder::SaveToJson()
 		Row->SetStringField("Action", Data.Action);
 
 	
-		// SubReward 저장
-		TArray<TSharedPtr<FJsonValue>> RewardArray;
+		// ---- SubRewards: 2D 배열로 쓰기 ----
+		TArray<TSharedPtr<FJsonValue>> Outer;
 
-		for (float v : Data.SubReward)
+		for (const TArray<float>& SRRow : Data.SubRewards)
 		{
-			RewardArray.Add(MakeShareable(new FJsonValueNumber(v)));
+			TArray<TSharedPtr<FJsonValue>> Inner;
+			for (float v : SRRow)
+				Inner.Add(MakeShareable(new FJsonValueNumber(v)));
+
+			Outer.Add(MakeShareable(new FJsonValueArray(Inner)));
 		}
 
-		Row->SetArrayField("SubReward", RewardArray);
+		Row->SetArrayField("SubRewards", Outer);
 
 
-
-		// 배열에 추가
 		JsonArray.Add(MakeShareable(new FJsonValueObject(Row)));
-
-
 	}
 
 	// 최종 객체
@@ -217,5 +295,6 @@ void UPlayerRecorder::SaveToJson()
 	FString FilePath = FPaths::ProjectSavedDir() + "Recordings/" + FileName;
 
 	FFileHelper::SaveStringToFile(OutputString, *FilePath);
-}
+	}
+
 
