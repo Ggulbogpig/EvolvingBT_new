@@ -1,32 +1,21 @@
-# softmax_irl.py
+
+# softmax_irl_new.py
 import json
 import torch
 from torch import nn
 from torch.optim import Adam
 
 class SoftmaxIRL:
-    def __init__(self, K, lr=0.05, device="cpu"):
-        """
-        K: 목적 함수 개수
-        lr: learning rate
-        """
+    def __init__(self, K, lr=0.01, device="cpu"):
         self.K = K
         self.device = device
-
-        # w는 K차원 파라미터 (초기값: uniform)
+        
         init_w = torch.ones(K, dtype=torch.float32) / K
-        # simplex 제약 (w >= 0, sum w = 1)을 나중에 projection으로 처리할거라
-        # 여기선 그냥 unconstrained param을 둔다.
         self.w_raw = nn.Parameter(init_w.clone())
 
         self.optimizer = Adam([self.w_raw], lr=lr)
 
     def project_simplex(self, v):
-        """
-        v를 확률 simplex (v_i >= 0, sum v_i = 1)로 projection
-        (standard algorithm)
-        """
-        # v: (K,)
         u, _ = torch.sort(v, descending=True)
         cssv = torch.cumsum(u, dim=0)
         rho = torch.nonzero(u * torch.arange(1, len(u)+1, device=v.device) > (cssv - 1), as_tuple=False)
@@ -36,67 +25,48 @@ class SoftmaxIRL:
         return w
 
     def load_demo(self, json_path):
-        with open(json_path, "r") as f:
-            data = json.load(f)
+        data = json.load(open(json_path, "r"))
+        traj = data["trajectories"]
 
-        self.objective_ids = data["objective_ids"]
-        steps = data["steps"]
+        reward_vectors = []
 
-        # sub_rewards_list: list of (num_actions, K)
-        # chosen_indices: list of chosen_action_index
-        sub_rewards_list = []
-        chosen_indices = []
+        for step in traj:
+            r = torch.tensor(step["sub_rewards"], dtype=torch.float32)  # (K,)
+            reward_vectors.append(r)
 
-        for step in steps:
-            sub_rewards = torch.tensor(step["sub_rewards"], dtype=torch.float32)  # (A, K)
-            chosen = step["chosen_action_index"]
+        return reward_vectors
 
-            sub_rewards_list.append(sub_rewards)
-            chosen_indices.append(chosen)
-
-        return sub_rewards_list, chosen_indices
-
-    def compute_loss(self, sub_rewards_list, chosen_indices):
-        """
-        L_demo(w; tau) = - sum_t log pi(a_t | s_t; w)
-        """
+    def compute_loss(self, reward_vectors):
         w = self.project_simplex(self.w_raw)  # (K,)
-        total_log_prob = 0.0
-        total_steps = 0
+        total = 0
 
-        for sub_rewards, chosen in zip(sub_rewards_list, chosen_indices):
-            # sub_rewards: (A, K)
-            # 행동 값: q_a = w^T r(s,a)
-            # (A,) = (A,K) @ (K,)
-            q = sub_rewards @ w  # (A,)
+        for r in reward_vectors:
+            # 목표는 w·r 를 최대화 → loss = - (w·r)
+            total += - torch.dot(w, r)
 
-            # softmax로 정책
-            log_probs = torch.log_softmax(q, dim=0)  # (A,)
+        return total / len(reward_vectors)
 
-            total_log_prob += log_probs[chosen]
-            total_steps += 1
-
-        # 평균 negative log-likelihood
-        loss = - total_log_prob / total_steps
-        return loss
-
-    def fit(self, sub_rewards_list, chosen_indices, num_steps=500, print_every=50):
+    def fit(self, reward_vectors, num_steps=2000, print_every=200):
         for step in range(1, num_steps+1):
             self.optimizer.zero_grad()
-            loss = self.compute_loss(sub_rewards_list, chosen_indices)
+
+            loss = self.compute_loss(reward_vectors)
+
             loss.backward()
             self.optimizer.step()
 
             if step % print_every == 0:
                 with torch.no_grad():
                     w_proj = self.project_simplex(self.w_raw)
-                print(f"[SoftmaxIRL] step={step}, loss={loss.item():.4f}, w={w_proj.tolist()}")
+                print(f"[IRL] step={step}, loss={loss.item():.4f}, w={w_proj.tolist()}")
 
         with torch.no_grad():
-            w_final = self.project_simplex(self.w_raw)
-        return w_final
+            final_w = self.project_simplex(self.w_raw)
+        return final_w
+
 
 def main():
+<<<<<<< Updated upstream
     import argparse
 
     # parser = argparse.ArgumentParser()
@@ -109,28 +79,25 @@ def main():
     # 데모 로드
     # tmp = json.load(open(args.trajectory, "r"))
     demo_json = "trajectory.json"
+=======
+    demo = "IRL_Run_Safe.json"
+>>>>>>> Stashed changes
 
+    reward_dim = 7   # 6차원 reward
     lr = 0.05
+<<<<<<< Updated upstream
     steps=1000
     out_json = "estimated_weights_softmax.json"
+=======
+    steps = 5000
+>>>>>>> Stashed changes
 
-    tmp = json.load(open(demo_json, "r"))
+    irl = SoftmaxIRL(K=reward_dim, lr=lr)
+    reward_vectors = irl.load_demo("IRLRecord_20251210_085543.json")
 
-    K = tmp["K"]
+    final_w = irl.fit(reward_vectors, num_steps=steps)
 
-    irl = SoftmaxIRL(K=K, lr=lr)
-    sub_rewards_list, chosen_indices = irl.load_demo(demo_json)
-
-    w = irl.fit(sub_rewards_list, chosen_indices, num_steps=steps)
-
-    # UE에서 쓸 수 있도록 objective_id → weight 매핑 JSON으로 내보내기
-    result = {
-        "objective_ids": tmp["objective_ids"],
-        "weights": w.tolist()  # 순서대로 매핑
-    }
-    with open(out_json, "w") as f:
-        json.dump(result, f, indent=2)
-
-    print("[SoftmaxIRL] Final weights saved to", out_json)
+    print("\n=== FINAL W ===")
+    print(final_w.tolist())
 
 

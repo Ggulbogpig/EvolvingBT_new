@@ -1,5 +1,6 @@
 {
   "objective_ids": [
+<<<<<<< Updated upstream
     "DamageToPlayer",
     "TimeAlive",
     "TreeSizePenalty"
@@ -7,6 +8,21 @@
   "weights": [
     1.0,
     0.0,
+=======
+    "DistanceSafety",
+    "GoalProgress",
+    "VisibilityRisk",
+    "HealthSurvival",
+    "ItemValue",
+    "TimeEfficiency"
+  ],
+  "weights": [
+    0.038731738924980164,
+    0.1635918766260147,
+    0.36800050735473633,
+    0.061675265431404114,
+    0.36800050735473633,
+>>>>>>> Stashed changes
     0.0
   ]
 }

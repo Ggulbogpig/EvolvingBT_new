@@ -138,9 +138,19 @@ public:
     // 블루프린트에서 Health 값을 업데이트할 수 있게 함
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Recorder")
     float CurrentHealth = 100.0f;
+    UPROPERTY()
+    FVector LastSeenPosition;
+
+    UPROPERTY()
+    float LastSeenTime;
+
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Recorder")
     AActor* TargetEnemy;
+
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Recorder")
+    TArray<AActor*> EnemyList;
 
 
     UFUNCTION(BlueprintCallable, Category = "Recorder")
@@ -159,6 +169,8 @@ public:
     };
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Recorder")
     FString CurrentAction = "Idle";
+
+
 
 
 
